@@ -21,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   bool normalMapview = true;
   bool moveCameraToUserLocation = false;
   Color moveCameraToUserLocationButtonColor = Colors.black;
+  String mapView = "Satellite View";
 
   @override
   void initState() {
@@ -34,11 +35,11 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            String msg = moveCameraToUserLocation ? "Focus on My Location" : "Remove Focus From My Location";
-            showToastMessage(msg);
             moveCameraToUserLocation = !moveCameraToUserLocation;
             moveCameraToUserLocationButtonColor =
                 moveCameraToUserLocation ? Colors.green : Colors.black;
+            String msg = moveCameraToUserLocation ? "Focus on My Location" : "Remove Focus From My Location";
+            showToastMessage(msg);
             setState(() {});
           },
           icon: Icon(
@@ -55,11 +56,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 const EdgeInsets.only(left: 5, right: 5),
               ),
             ),
-            child: const Text("Toggle Map View"),
             onPressed: () {
               normalMapview = !normalMapview;
+              mapView = normalMapview ? "Satellite View" : "Normal View";
               setState(() {});
             },
+            child: Text(mapView),
           ),
         ],
         title: const Text(
@@ -181,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void showToastMessage(String message) {
     Fluttertoast.showToast(
         msg: message,
-        toastLength: Toast.LENGTH_LONG,
+        toastLength: Toast.LENGTH_SHORT,
         gravity: ToastGravity.BOTTOM,
         backgroundColor: Colors.black,
         textColor: Colors.green,
